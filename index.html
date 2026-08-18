@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial ratios dashboard</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>Financial ratios dashboard</h1>
+  <div class="field">
+    <label for="companySelect">Company</label>
+    <select id="companySelect"></select>
+  </div>
+  <button id="reloadBtn">Reload data</button>
+  <div id="status">Loading…</div>
+</header>
+
+<div class="layout">
+  <aside>
+    <h2>Period</h2>
+    <div class="seg" id="periodSeg">
+      <button data-period="annual" class="active">Annual</button>
+      <button data-period="quarterly">Quarterly</button>
+    </div>
+    <div class="quarter-filter" id="quarterFilterWrap">
+      <select id="quarterFilter">
+        <option value="all">All quarters</option>
+        <option value="Q1">Q1 only (year over year)</option>
+        <option value="Q2">Q2 only (year over year)</option>
+        <option value="Q3">Q3 only (year over year)</option>
+        <option value="Q4">Q4 only (year over year)</option>
+      </select>
+    </div>
+
+    <h2>Chart type</h2>
+    <div class="seg" id="chartTypeSeg">
+      <button data-chart="line" class="active">Line</button>
+      <button data-chart="bar">Bar</button>
+    </div>
+
+    <h2>Ratios</h2>
+    <div id="ratioGroups"></div>
+
+    <div class="side-actions">
+      <button id="clearBtn">Clear</button>
+      <button id="defaultBtn">Reset default</button>
+    </div>
+  </aside>
+
+  <main>
+    <div class="chart-card">
+      <div class="legend" id="chartLegend"></div>
+      <div id="chartWrap">
+        <canvas id="ratioChart" role="img" aria-label="Chart of selected financial ratios"></canvas>
+      </div>
+      <div id="emptyState" style="display:none;">Select one or more ratios from the sidebar to see a chart.</div>
+    </div>
+
+    <div class="chart-card table-scroll">
+      <table id="dataTable"></table>
+    </div>
+  </main>
+</div>
+
+<footer>
+  Data is read live from the configured Google Sheet on every reload. Edit the <code>CONFIG</code> object near the
+  top of <code>app.js</code> to add companies or point at different sheet tabs. The sheet must be shared as
+  “Anyone with the link can view”.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
